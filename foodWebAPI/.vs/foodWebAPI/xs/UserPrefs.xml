@@ -1,0 +1,29 @@
+﻿<Properties StartupConfiguration="{070281D8-71CB-4AEE-90E9-FF48DA4DCA5C}|https">
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.Workbench ActiveDocument="foodWebAPI/appsettings.json">
+    <Files>
+      <File FileName="foodWebAPI/Services/IFoodService.cs" Line="12" Column="1" />
+      <File FileName="foodWebAPI/Controllers/FoodService.cs" Line="26" Column="13" />
+      <File FileName="foodWebAPI/Program.cs" Line="2" Column="1" />
+      <File FileName="foodWebAPI/appsettings.json" Line="3" Column="48" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="foodWebAPI">
+            <Node name="foodWebAPI">
+              <Node name="Controllers" expanded="True" />
+              <Node name="Services" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.foodWebAPI PreferredExecutionTarget="/Applications/Safari.app" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+</Properties>
