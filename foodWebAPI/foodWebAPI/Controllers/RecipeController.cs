@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
+using System.Threading;
 using foodWebAPI.DB;
+using foodWebAPI.Models;
 using foodWebAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -22,13 +24,6 @@ namespace foodWebAPI.Controllers
 			_logger = logger;
             _recipeService = recipeService;
 		}
-
-		public record Recipe
-        {
-			public string Id = null!;
-			public string Title = "";
-			public List<string> Components = new();
-		};
 
         public record Pagination
         {
@@ -52,28 +47,41 @@ namespace foodWebAPI.Controllers
             }
         }
 
-        public record GetRecipeRequese(Pagination? Pagination);
-		public record GetRecipeResponse(List<Recipe>? Recipe = default);
+        public record GetRecipesRequeset(Pagination? Pagination);
+		public record GetRecipesResponse(List<Recipe>? Recipes = null);
 
 		[HttpGet()]
 		[SwaggerOperation(Summary = "Get All Recipes")]
         [SwaggerResponse(200, "Entries found", typeof(Recipe[]))]
         [SwaggerResponse(404, "Entries not found")]
         [SwaggerResponse(400, "Bad request")]
-        public IActionResult GetRecipes([FromQuery] GetRecipeRequese request, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetRecipes([FromQuery] GetRecipesRequeset request, CancellationToken cancellationToken)
 		{
-            var result = _recipeService.GetRecipesAsync(request.Pagination != null ? request.Pagination.Page : 1, cancellationToken);
-            return Ok(new GetRecipeResponse());
+            var result = await _recipeService.GetRecipesAsync(request.Pagination != null ? request.Pagination.Page : 1, cancellationToken);
+            if (result.Error != null)
+            {
+                _logger.LogError("Error", result.Error);
+                return BadRequest();
+            }
+            return Ok(new GetRecipesResponse(result.Result?.ToList()));
 		}
+
+        public record GetRecipeResponse(Recipe? Recipe);
 
         [HttpGet("{recipeId}")]
         [SwaggerOperation(Summary = "Get All Recipes")]
         [SwaggerResponse(200, "Entries found", typeof(Recipe[]))]
         [SwaggerResponse(404, "Entries not found")]
         [SwaggerResponse(400, "Bad request")]
-        public IActionResult GetRecipe([FromQuery] GetRecipeRequese request)
+        public async Task<IActionResult> GetRecipe(string recipeId, CancellationToken cancellationToken)
         {
-            return Ok(new GetRecipeResponse());
+            var result = await _recipeService.GetRecipeAsync(recipeId, cancellationToken);
+            if (result.Error != null)
+            {
+                _logger.LogError("Error", result.Error);
+                return BadRequest();
+            }
+            return Ok(new GetRecipeResponse(result.Result));
         }
     }
 }

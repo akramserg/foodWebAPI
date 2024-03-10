@@ -3,7 +3,6 @@ using foodWebAPI.DB;
 using foodWebAPI.Models;
 using foodWebAPI.Routing;
 using Microsoft.EntityFrameworkCore;
-using static foodWebAPI.Controllers.RecipeService;
 
 namespace foodWebAPI.Services
 {
@@ -31,7 +30,18 @@ namespace foodWebAPI.Services
             return new RecipeActionResult<IEnumerable<Recipe>>
             {
                 Error = null,
-                Results = recipes
+                Result = recipes
+            };
+        }
+
+        public async Task<RecipeActionResult<Recipe?>> GetRecipeAsync(string recipeId, CancellationToken cancellationToken)
+        {
+            var recipe = await _dbContext.Recipes.FirstOrDefaultAsync(r => r.Id == recipeId);
+
+            return new RecipeActionResult<Recipe?>
+            {
+                Error = null,
+                Result = recipe
             };
         }
     }

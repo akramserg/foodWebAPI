@@ -1,4 +1,6 @@
-﻿using foodWebAPI.Services;
+﻿using foodWebAPI.DB;
+using foodWebAPI.Services;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +11,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c => { c.EnableAnnotations(); });
 builder.Services.AddTransient<IRecipeService, RecipeService>();
+builder.Services.AddTransient<DataContext>();
 
 var app = builder.Build();
 

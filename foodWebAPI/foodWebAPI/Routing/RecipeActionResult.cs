@@ -6,7 +6,7 @@ namespace foodWebAPI.Routing
 	public class RecipeActionResult<T>
 	{
 		public string? Error;
-		public T? Results;
+		public T? Result;
 	}
 }
 
