@@ -1,10 +1,7 @@
-﻿using System;
-namespace foodWebAPI.DB;
-
-using System.Collections.Generic;
-using foodWebAPI.Models;
+﻿using foodWebAPI.Models;
 using Microsoft.EntityFrameworkCore;
 
+namespace foodWebAPI.DB;
 
 public class DataContext : DbContext
 {
@@ -22,5 +19,7 @@ public class DataContext : DbContext
     }
 
     public DbSet<User> Users { get; set; }
+    public DbSet<Recipe> Recipes { get; set; }
+    public DbSet<Ingredient> Ingredients { get; set; }
 }
 
